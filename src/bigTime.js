@@ -7,7 +7,7 @@ class BigTime {
 
   checkSession() {}
 
-  createSession(email, password) {
+  async createSession(email, password) {
     const initOptions = {
       credentials: 'same-origin',
       method: 'POST',
@@ -16,12 +16,10 @@ class BigTime {
     formData.append('UserId', email)
     formData.append('Pwd', password)
     initOptions.body = formData
-    fetch(API_SESSION, initOptions)
+    return fetch(API_SESSION, initOptions)
       .then(res => res.json())
-      .then(rawResponse => {
-        const response = JSON.stringify(rawResponse)
+      .then(response => {
         const { firm, fname, sname, token } = response
-        console.log('response', response)
         localStorage.setItem('token', token)
         localStorage.setItem('firm', firm)
         localStorage.setItem('firstName', fname)

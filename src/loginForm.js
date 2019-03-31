@@ -1,7 +1,9 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import BigTimeClass from './bigTime'
+import AuthContext from './authContext'
 
 const LoginForm = () => {
+  const authContext = useContext(AuthContext)
   const bigTime = new BigTimeClass()
   const [email, setEmail] = useState('mike.flores@verys.com')
   const [password, setPassword] = useState('Sigma23@')
@@ -25,7 +27,10 @@ const LoginForm = () => {
       />
       <button
         onClick={() => {
-          bigTime.createSession(email, password)
+          bigTime.createSession(email, password).then(() => {
+            const token = localStorage.getItem('token')
+            authContext.updateToken(token)
+          })
         }}
       >
         Log in

@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
+import AuthContext from './authContext'
 import LoginForm from './loginForm'
 import MainView from './mainView'
 import './styles.css'
 
 function App() {
-  const token = localStorage.getItem('token')
+  const [token, setToken] = useState(null)
+  if (!token) {
+    setToken(localStorage.getItem('token'))
+  }
+
   const [strategy, setStrategy] = useState({
-    ActiveComponent: LoginForm,
+    ActiveComponent: () => <LoginForm />,
     name: 'Login',
   })
+
   // Check if we have a token we can use to authenticate
   // If we don't, and we're not already showing Login, then show Login
   if (!token && strategy.name !== 'Login')
@@ -23,7 +29,16 @@ function App() {
   return (
     <div className="App">
       <h1>EasyTime</h1>
-      {strategy.ActiveComponent()}
+      <AuthContext.Provider
+        value={{
+          token,
+          updateToken: value => {
+            setToken(value)
+          },
+        }}
+      >
+        {strategy.ActiveComponent()}
+      </AuthContext.Provider>
     </div>
   )
 }
