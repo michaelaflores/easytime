@@ -8,11 +8,12 @@ function App() {
   const token = localStorage.getItem('token')
   const [strategy, setStrategy] = useState({
     ActiveComponent: LoginForm,
+    name: 'Login',
   })
   // Check if we have a token we can use to authenticate
   // If we don't, and we're not already showing Login, then show Login
   if (!token && strategy.name !== 'Login')
-    setStrategy({ ActiveComponent: () => <LoginForm /> })
+    setStrategy({ ActiveComponent: () => <LoginForm />, name: 'Login' })
 
   // When the user is authenticated and not already on main view
   if (token && strategy.name !== 'Main') {
