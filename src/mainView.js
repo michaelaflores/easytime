@@ -15,7 +15,7 @@ const MainView = () => {
 
   return (
     <div>
-      <h2>Enter hours for today</h2>
+      <h2>How many hours did you work today?</h2>
       <input
         autoComplete="on"
         type="number"
