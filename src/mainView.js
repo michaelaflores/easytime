@@ -1,37 +1,60 @@
 import React, { useState } from 'react'
 import BigTimeClass from './bigTime'
 import NotificationClass from './notifications'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const MainView = () => {
-  const [hours, setHours] = useState(0)
+  // Set a default of 8 hours. While we can pass the "placeholder" attribute below,
+  // MUI will replace it with the value set here.
+  const [hours, setHours] = useState(8)
+  const [hoursChecked, setHoursChecked] = useState(false)
   const bigtime = new BigTimeClass()
   const notifications = new NotificationClass()
 
   const submitHours = () => {
-    console.log('submitting', hours)
     bigtime.submitHours(hours)
     notifications.createNotification('Your hours were submitted. Back to work!')
   }
 
   return (
     <div>
-      <h2>How many hours did you work today?</h2>
-      <input
-        autoComplete="on"
-        type="number"
-        placeholder="8"
-        min="1"
-        max="24"
+      <Typography variant="h6" gutterBottom>
+        How many hours did you work today?
+      </Typography>
+      <TextField
+        id="outlined-number"
+        label="Hours worked"
+        value={hours}
         onChange={({ target: { value } }) => setHours(value)}
+        type="number"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        margin="normal"
+        variant="outlined"
+        inputProps={{
+          min: '1',
+          max: '24',
+        }}
       />
-      <span> hours</span>
       <div>
-        <input name="autoLunchHours" type="checkbox" checked />
-        <label htmlFor="autoLunchHours">
-          Automatically add 1 hour of lunch
-        </label>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={hoursChecked}
+              onChange={() => setHoursChecked(!hoursChecked)}
+              value="hoursChecked"
+              color="primary"
+            />
+          }
+          label="Automatically add 1 hour of lunch"
+        />
       </div>
-      <button onClick={submitHours}>Submit</button>
+      <Button onClick={submitHours}>Submit</Button>
     </div>
   )
 }

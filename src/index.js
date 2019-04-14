@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom'
 import AuthContext from './authContext'
 import LoginForm from './loginForm'
 import MainView from './mainView'
+import Typography from '@material-ui/core/Typography'
+import { createMuiTheme } from '@material-ui/core/styles'
+import AppBar from './appBar'
+import 'typeface-roboto'
 import './styles.css'
+
+const theme = createMuiTheme({})
 
 function App() {
   const [token, setToken] = useState(null)
@@ -28,7 +34,7 @@ function App() {
   }
   return (
     <div className="App">
-      <h1>EasyTime</h1>
+      <AppBar />
       <AuthContext.Provider
         value={{
           token,

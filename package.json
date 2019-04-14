@@ -5,9 +5,12 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@material-ui/core": "3.9.3",
+    "@material-ui/icons": "latest",
     "react": "16.8.3",
     "react-dom": "16.8.3",
-    "react-scripts": "2.0.3"
+    "react-scripts": "2.0.3",
+    "typeface-roboto": "0.0.54"
   },
   "devDependencies": {},
   "scripts": {
